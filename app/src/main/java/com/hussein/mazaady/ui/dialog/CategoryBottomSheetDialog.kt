@@ -79,7 +79,11 @@ class CategoryBottomSheetDialog : BottomSheetDialogFragment() , OnCategoryListen
                             }
                             binding.progress.visibility = View.GONE
                         }
+                        is Status.SuccessData<*> -> {
+                            binding.progress.visibility = View.GONE
+                            Toast.makeText(context, category.msg, Toast.LENGTH_SHORT).show()
 
+                        }
                         is Status.Error -> {
                             binding.progress.visibility = View.GONE
                             Toast.makeText(context, category.msg, Toast.LENGTH_SHORT).show()
@@ -107,16 +111,22 @@ class CategoryBottomSheetDialog : BottomSheetDialogFragment() , OnCategoryListen
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if(s.toString().isEmpty() && categoriesLists.isNotEmpty()){
+                if(s.toString().isNotEmpty() && categoriesLists.isNotEmpty()){
                     val query = s.toString()
                     val filteredList = categoriesLists.filter { it.name!!.contains(query, ignoreCase = true) }
-                    val adapter = MainCategoryAdapter(filteredList, this@CategoryBottomSheetDialog)
-                    binding.rvProperity.adapter = adapter
+                    showRecyclerView(filteredList)
+                }
+                else{
+                    showRecyclerView(categoriesLists)
                 }
             }
 
         })
 
+    }
+    private fun showRecyclerView(categories: List<CategoryX>) {
+        val adapter = MainCategoryAdapter(categories, this@CategoryBottomSheetDialog)
+        binding.rvProperity.adapter = adapter
     }
 
     override fun onCategoryClicked(category: CategoryX) {

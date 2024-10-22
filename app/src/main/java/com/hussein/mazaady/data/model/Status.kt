@@ -10,6 +10,9 @@ sealed class Status<out T>  {
     data class Success<out T>(val data: T) : Status<T>()
 
     @Serializable
+    data class SuccessData<out T>(val data: List<T>) : Status<T>()
+
+    @Serializable
     data class Error(val msg: String, val code: Int? = null) : Status<Nothing>()
 
     @Serializable

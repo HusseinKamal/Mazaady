@@ -1,5 +1,6 @@
 package com.hussein.mazaady.data.remote
 
+import com.hussein.mazaady.data.model.ArrayBaseResponse
 import com.hussein.mazaady.data.model.BaseResponse
 import com.hussein.mazaady.domain.category.Category
 import com.hussein.mazaady.domain.option.Option
@@ -34,6 +35,7 @@ class ApiService {
             json(Json {
                 prettyPrint = true
                 isLenient = true
+                ignoreUnknownKeys = true
             })
         }
         install(Logging) {
@@ -50,14 +52,14 @@ class ApiService {
         val response:BaseResponse<Category> =client.get(BASE_URL + CATEGORY_ENDPOINT).body()
         return response
     }
-    suspend fun getProperities(): BaseResponse<Properity> {
+    suspend fun getProperities(id:String): ArrayBaseResponse<Properity> {
         // Replace with your actual API endpoint
-        val response:BaseResponse<Properity> =client.get(BASE_URL + PROPERITIES_ENDPOINT).body()
+        val response:ArrayBaseResponse<Properity> =client.get("$BASE_URL$PROPERITIES_ENDPOINT?cat=$id").body()
         return response
     }
-    suspend fun getOptions(): BaseResponse<Option> {
+    suspend fun getOptions(id:String): ArrayBaseResponse<Option> {
         // Replace with your actual API endpoint
-        val response:BaseResponse<Option> =client.get(BASE_URL + OPTIONS_ENDPOINT).body()
+        val response:ArrayBaseResponse<Option> =client.get(BASE_URL + OPTIONS_ENDPOINT + id).body()
         return response
     }
 }

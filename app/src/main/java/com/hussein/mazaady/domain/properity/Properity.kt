@@ -9,26 +9,26 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Properity(
     @SerialName("description")
-    var description: String?,
+    var description: String?="",
     @SerialName("id")
     var id: Int,
     @SerialName("list")
-    var list: Boolean,
+    var list: Boolean= false,
     @SerialName("name")
-    var name: String?,
+    var name: String?="",
     @SerialName("options")
-    var options: List<Option>,
+    var options: List<Option> = emptyList(),
     @SerialName("other_value")
     @Contextual
-    var otherValue: Any,
+    var otherValue: String?="",
     @SerialName("parent")
     @Contextual
-    var parent: Any,
+    var parent: String?="",
     @SerialName("slug")
-    var slug: String?,
+    var slug: String?="",
     @SerialName("type")
     @Contextual
-    var type: Any,
+    var type: String?="",
     @SerialName("value")
-    var value: String?
+    var value: String?=""
 )

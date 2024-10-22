@@ -9,25 +9,26 @@ import kotlinx.serialization.Serializable
 data class Option(
     @SerialName("description")
     @Contextual
-    var description: Any,
+    var description: String?="",
     @SerialName("id")
     var id: Int,
     @SerialName("list")
-    var list: Boolean,
+    var list: Boolean=false,
     @SerialName("name")
     var name: String?,
     @SerialName("options")
-    var options: List<OptionX>,
+    var options: List<OptionX> = emptyList(),
     @SerialName("other_value")
     @Contextual
-    var otherValue: Any,
+    var otherValue: String?= "",
     @SerialName("parent")
     var parent: Int,
     @SerialName("slug")
-    var slug: String?,
+    var slug: String?= "",
     @SerialName("type")
     @Contextual
-    var type: Any,
+    var type: String?= "",
     @SerialName("value")
-    var value: String?
+    var value: String?= "",
+    var isChecked:Boolean = false
 )

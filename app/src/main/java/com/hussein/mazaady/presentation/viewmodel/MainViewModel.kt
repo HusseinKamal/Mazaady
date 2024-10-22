@@ -2,6 +2,7 @@ package com.hussein.mazaady.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hussein.mazaady.data.model.ArrayBaseResponse
 import com.hussein.mazaady.data.model.BaseResponse
 import com.hussein.mazaady.domain.category.Category
 import com.hussein.mazaady.domain.repository.CategoryRepository
@@ -15,11 +16,11 @@ class MainViewModel(private val userRepository: CategoryRepository) : ViewModel(
     private val _categoryData = MutableStateFlow<BaseResponse<Category>>(BaseResponse(0,"",null))
     val categoryData: StateFlow<BaseResponse<Category>> = _categoryData
 
-    private val _properityData = MutableStateFlow<BaseResponse<Properity>>(BaseResponse(0,"",null))
-    val properityData: StateFlow<BaseResponse<Properity>> = _properityData
+    private val _properityData = MutableStateFlow<ArrayBaseResponse<Properity>>(ArrayBaseResponse(0,"",ArrayList()))
+    val properityData: StateFlow<ArrayBaseResponse<Properity>> = _properityData
 
-    private val _optionData = MutableStateFlow<BaseResponse<Option>>(BaseResponse(0,"",null))
-    val optionData: StateFlow<BaseResponse<Option>> = _optionData
+    private val _optionData = MutableStateFlow<ArrayBaseResponse<Option>>(ArrayBaseResponse(0,"",ArrayList()))
+    val optionData: StateFlow<ArrayBaseResponse<Option>> = _optionData
 
     fun getCategories() {
         viewModelScope.launch {
@@ -28,16 +29,16 @@ class MainViewModel(private val userRepository: CategoryRepository) : ViewModel(
             }
         }
     }
-    fun getProperities() {
+    fun getProperities(id:String) {
         viewModelScope.launch {
-            userRepository.getProperities().collect {
+            userRepository.getProperities(id).collect {
                 _properityData.value = it
             }
         }
     }
-    fun getOptions() {
+    fun getOptions(id:String) {
         viewModelScope.launch {
-            userRepository.getOptions().collect {
+            userRepository.getOptions(id).collect {
                 _optionData.value = it
             }
         }

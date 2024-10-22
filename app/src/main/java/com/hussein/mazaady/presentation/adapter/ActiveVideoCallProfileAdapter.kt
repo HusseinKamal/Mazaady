@@ -7,12 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.ItemVideoCallProfileBinding
-import com.hussein.mazaady.databinding.OptionItemLayoutBinding
-import com.hussein.mazaady.databinding.ProperityItemLayoutBinding
-import com.hussein.mazaady.domain.option.OptionX
-import com.hussein.mazaady.domain.properity.Properity
-import com.hussein.mazaady.presentation.event.OnOptionListener
-import com.hussein.mazaady.presentation.event.OnProperityListener
 
 class ActiveVideoCallProfileAdapter (private val context: Context, private val items: ArrayList<String>) : RecyclerView.Adapter<ActiveVideoCallProfileAdapter.ViewHolder>() {
 

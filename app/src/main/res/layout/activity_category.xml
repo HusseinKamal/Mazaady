@@ -26,6 +26,12 @@
             android:id="@+id/fieldSubMainCategory"
             android:layout_margin="8dp"
             layout="@layout/custom_spinner_field"/>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:id="@+id/progressBar"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +42,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/btnSubmit"
             android:padding="16dp"
             android:layout_margin="16dp"
             android:textSize="18sp"

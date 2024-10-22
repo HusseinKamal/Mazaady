@@ -6,13 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.OptionItemLayoutBinding
-import com.hussein.mazaady.databinding.ProperityItemLayoutBinding
-import com.hussein.mazaady.domain.option.OptionX
+import com.hussein.mazaady.domain.option.Option
 import com.hussein.mazaady.domain.properity.Properity
 import com.hussein.mazaady.presentation.event.OnOptionListener
-import com.hussein.mazaady.presentation.event.OnProperityListener
 
-public class OptionAdapter (private val items: List<OptionX>, private val listener: OnOptionListener) : RecyclerView.Adapter<OptionAdapter.ViewHolder>() {
+class OptionAdapter (private val items: List<Option>,private val properity: Properity, private val listener: OnOptionListener) : RecyclerView.Adapter<OptionAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: OptionItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,7 +28,7 @@ public class OptionAdapter (private val items: List<OptionX>, private val listen
         val item = items[position]
         holder.binding.item = item
         holder.itemView.setOnClickListener {
-            listener.onOptionClicked(item)
+            listener.onOptionClicked(properity,item)
         }
     }
 

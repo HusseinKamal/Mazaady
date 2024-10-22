@@ -1,5 +1,6 @@
 package com.hussein.mazaady.domain.repository
 
+import com.hussein.mazaady.data.model.ArrayBaseResponse
 import com.hussein.mazaady.data.model.BaseResponse
 import com.hussein.mazaady.data.remote.ApiService
 import com.hussein.mazaady.domain.category.Category
@@ -28,23 +29,31 @@ class CategoryRepositoryImpl(private val apiService: ApiService) : CategoryRepos
         }
     }
 
-    override fun getProperities(): Flow<BaseResponse<Properity>> = flow {
-        emit(BaseResponse(code = 200, msg = "Loading...", status = Status.Loading))
+    override fun getProperities(id:String): Flow<ArrayBaseResponse<Properity>> = flow {
+        emit(ArrayBaseResponse(code = 200, msg = "Loading...", status = Status.Loading))
         try {
-            val properities:BaseResponse<Properity> = apiService.getProperities()
-            emit(properities)
+            var properities:ArrayBaseResponse<Properity> = apiService.getProperities(id)
+            properities.let {property ->
+                val mPropertyData = properities.copy(status = Status.SuccessData(property.data) )
+                emit(mPropertyData)
+            }
         } catch (e: Exception) {
-            emit(BaseResponse(code = 400, msg = "Error", status = Status.Error("e.message ?: Unknown error",400)))
+            emit(ArrayBaseResponse(code = 400, msg = "Error", status = Status.Error("e.message ?: Unknown error",400)))
         }
     }
 
-    override fun getOptions(): Flow<BaseResponse<Option>> = flow {
-        emit(BaseResponse(code = 200, msg = "Loading...", status = Status.Loading))
+    override fun getOptions(id:String): Flow<ArrayBaseResponse<Option>> = flow {
+        emit(ArrayBaseResponse(code = 200, msg = "Loading...", status = Status.Loading))
         try {
-            val options:BaseResponse<Option> = apiService.getOptions()
-            emit(options)
+            var options:ArrayBaseResponse<Option> = apiService.getOptions(id)
+            options.let {options ->
+                val newProperity = options.data
+                newProperity.add(0,Option(id = 0,name = "Other",parent = 0))
+                val mOptionData = options.copy(status = Status.SuccessData(newProperity) )
+                emit(mOptionData)
+            }
         } catch (e: Exception) {
-            emit(BaseResponse(code = 400, msg = "Error", status = Status.Error("e.message ?: Unknown error",400)))
+            emit(ArrayBaseResponse(code = 400, msg = "Error", status = Status.Error("e.message ?: Unknown error",400)))
         }
     }
 }
