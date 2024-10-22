@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mazaady</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="main_category">Main Category</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="search_hint">Search…</string>
+    <string name="profile">Profile</string>
+</resources>

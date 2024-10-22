@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable name="item" type="com.hussein.mazaady.domain.properity.Properity" />
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fieldMainCategory"
+        android:layout_marginBottom="8dp"
+        layout="@layout/custom_spinner_field"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:id="@+id/textOther"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>
+</layout>
