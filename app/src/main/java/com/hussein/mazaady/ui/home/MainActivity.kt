@@ -1,12 +1,14 @@
 package com.hussein.mazaady.ui.home
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.ActivityMainBinding
 
@@ -35,5 +37,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // Create example data for a badge for the notifications item
+        val badge: BadgeDrawable = navView.getOrCreateBadge(R.id.navigation_message)
+        badge.number = 5 // Set the badge number
+        badge.isVisible = true // Make the badge visible
+
     }
 }

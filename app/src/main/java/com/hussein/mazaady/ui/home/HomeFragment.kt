@@ -80,8 +80,12 @@ class HomeFragment : Fragment() {
         mCoursesList.add("Photoshop")
         mCoursesList.add("Indesign")
         binding.rvCourses.adapter = CourseAdapter(requireContext(),mCoursesList)
+        // Disable clip padding to allow drawing outside the bounds
+        binding.rvCourses.clipToPadding = false
+        binding.rvCourses.clipChildren = false
+        // Set offscreen page limit for smoother transitions
+        binding.rvCourses.offscreenPageLimit = 1
         binding.rvCourses.setPageTransformer(CarouselTransformer())
-        binding.rvCourses.offscreenPageLimit = 1 // Important for smooth transitions
 
         setupIndicators()
         setCurrentIndicator(0)
