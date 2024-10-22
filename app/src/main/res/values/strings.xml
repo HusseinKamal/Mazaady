@@ -7,4 +7,6 @@
     <string name="sub_category">Sub Category</string>
     <string name="search_hint">Search…</string>
     <string name="profile">Profile</string>
+    <string name="submit">Submit</string>
+    <string name="home">Home</string>
 </resources>

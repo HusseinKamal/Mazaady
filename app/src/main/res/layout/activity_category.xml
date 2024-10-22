@@ -32,6 +32,26 @@
             android:nestedScrollingEnabled="false"
             android:layout_margin="8dp"
             android:id="@+id/rvProperity"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:text="@string/submit"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lyTableContainer"
+            android:visibility="gone"
+            tools:visibility="visible"
+            layout="@layout/table_categories_layout"/>
     </LinearLayout>
 </ScrollView>
 
