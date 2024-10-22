@@ -7,35 +7,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:id="@+id/mainCategoryTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:orientation="vertical"
+            android:padding="8dp"
             android:background="@drawable/rounded_border"
-            app:boxStrokeColor="@color/tag_color"
-            app:boxStrokeWidth="0dp"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
+                android:id="@+id/hint_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:enabled="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                tools:text="main category" />
+
+            <TextView
                 android:id="@+id/mainCategoryField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:drawableEnd="@drawable/ic_arrow_down"
                 android:enabled="false"
-                android:hint="@string/main_category"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:text="main category" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="70dp"
