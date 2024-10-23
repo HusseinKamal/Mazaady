@@ -5,4 +5,4 @@
 4. Ktor newtwork library
 5. XMl kotlin
 6. DataBinding
-# Feel free to make contribute in my Repo :)
+# Feel free to add your contribution in my Repo :)
