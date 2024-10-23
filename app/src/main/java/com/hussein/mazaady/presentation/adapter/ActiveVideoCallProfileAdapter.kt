@@ -24,7 +24,7 @@ class ActiveVideoCallProfileAdapter (private val context: Context, private val i
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-       holder.binding.profileImage.setImageResource(R.drawable.avatarlive)
+       holder.binding.icProfileImage.setImageResource(R.drawable.avatarlive)
     }
 
     override fun getItemCount() = items.size

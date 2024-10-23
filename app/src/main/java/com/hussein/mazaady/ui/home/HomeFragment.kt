@@ -11,18 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.FragmentHomeBinding
 import com.hussein.mazaady.presentation.adapter.ActiveVideoCallProfileAdapter
 import com.hussein.mazaady.presentation.adapter.CourseAdapter
 import com.hussein.mazaady.presentation.adapter.TagCourseAdapter
-import com.hussein.mazaady.ui.customview.CarouselTransformer
+import kotlin.math.abs
 
 /** This is Home page but I make all page items like course recyclerviews,tags,active users in separate part to make it reusable*/
 class HomeFragment : Fragment() {
@@ -84,9 +86,10 @@ class HomeFragment : Fragment() {
         binding.rvCourses.clipToPadding = false
         binding.rvCourses.clipChildren = false
         // Set offscreen page limit for smoother transitions
-        binding.rvCourses.offscreenPageLimit = 1
-        binding.rvCourses.setPageTransformer(CarouselTransformer())
-
+        binding.rvCourses.offscreenPageLimit = 3
+        //binding.rvCourses.setPageTransformer(CarouselTransformer())
+        binding.rvCourses.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        addTransformation()
         setupIndicators()
         setCurrentIndicator(0)
 
@@ -149,6 +152,15 @@ class HomeFragment : Fragment() {
                 )
             )
         }
+    }
+    private fun addTransformation(){
+        val transform = CompositePageTransformer()
+        transform.addTransformer(MarginPageTransformer(30))
+        transform.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.14f
+        }
+        binding.rvCourses.setPageTransformer(transform)
     }
     private fun getScreenHeight(): Int {
         val displayMetrics = DisplayMetrics()

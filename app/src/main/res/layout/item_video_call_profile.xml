@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/lyContainer"
-        android:orientation="vertical">
+        android:layout_marginEnd="16dp">
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/avatarlive"/>
-    </LinearLayout>
+            android:id="@+id/icProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/rounded_red_border_bg"
+            android:src="@drawable/avatarlive" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/ivActiveLive"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/ic_live_circle" />
+
+    </FrameLayout>
 
 </layout>

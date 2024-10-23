@@ -55,10 +55,12 @@
             <!-- Course Cards (Use RecyclerView with Vertical LinearLayoutManager) -->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/rv_courses"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
