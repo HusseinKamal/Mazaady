@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hussein.mazaady.R
 import com.hussein.mazaady.data.model.Status
 import com.hussein.mazaady.databinding.CategoryBottomSheetDialogBinding
+import com.hussein.mazaady.domain.Util
 import com.hussein.mazaady.domain.option.Option
 import com.hussein.mazaady.domain.option.OptionX
 import com.hussein.mazaady.domain.properity.Properity
@@ -45,11 +46,12 @@ class OptionBottomSheetDialog : BottomSheetDialogFragment() , OnOptionListener {
             return bottomSheetDialog
         }
     }
-
+    override fun getTheme(): Int {
+        return R.style.RoundedBottomSheetDialog // Apply rounded border
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.DialogStyle3)
         isCancelable = false
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -170,6 +172,12 @@ class OptionBottomSheetDialog : BottomSheetDialogFragment() , OnOptionListener {
 
 
     override fun onOptionClicked(properity: Properity,option: Option) {
+        if(option.name.equals(Util.OTHER_OPTION)){
+            selectedOption = option
+            listener.onOptionClicked(properity,option)
+            dismiss()
+            return
+        }
         listener.onOptionClicked(properity,option)
         selectedOption = option
         callOptionsPropertyAPI()
@@ -177,6 +185,12 @@ class OptionBottomSheetDialog : BottomSheetDialogFragment() , OnOptionListener {
     }
 
     override fun onOptionClicked(properity: Properity,option: OptionX) {
+        if(option.name.equals(Util.OTHER_OPTION)){
+            selectedSubOption = option
+            listener.onOptionClicked(properity,option)
+            dismiss()
+            return
+        }
         selectedSubOption = option
         listener.onOptionClicked(properity,selectedSubOption!!)
         dismiss()

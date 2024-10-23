@@ -12,10 +12,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/course"
             android:id="@+id/lyContainer"
+            android:background="@drawable/ic_course"
             android:orientation="vertical"
             android:padding="16dp">
+
 
             <include layout="@layout/tag_item_layout"
                 android:layout_alignParentTop="true"
@@ -114,6 +115,7 @@
 
         </RelativeLayout>
             </LinearLayout>
+
 
         </RelativeLayout>
 

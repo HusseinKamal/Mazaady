@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.ProperityItemLayoutBinding
+import com.hussein.mazaady.domain.Util
 import com.hussein.mazaady.domain.option.Option
 import com.hussein.mazaady.domain.option.OptionX
 import com.hussein.mazaady.domain.properity.Properity
@@ -15,6 +16,11 @@ import com.hussein.mazaady.ui.dialog.OptionBottomSheetDialog
 
 class PropertyAdapter(private val fragmentManager: FragmentManager, private val items: List<Properity>, private val listener: OnProperityListener,private val listenerOptions: OnOptionListener) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>(){
 
+    init {
+        if(items.isNotEmpty()){
+            items[0].isVisible = true
+        }
+    }
     private var selectedOption:ArrayList<Option> = ArrayList()
     private var selectedSubOption:ArrayList<OptionX> = ArrayList()
 
@@ -35,37 +41,100 @@ class PropertyAdapter(private val fragmentManager: FragmentManager, private val 
         val item = items[position]
         holder.binding.fieldMainCategory.mainCategoryField.text = item.name
         holder.binding.fieldMainCategory.hintText.text = item.name
+        holder.binding.root.visibility = if(item.isVisible) ViewGroup.VISIBLE else ViewGroup.GONE
         holder.binding.fieldMainCategory.ViewPopup.setOnClickListener {
             val bottomSheetDialogFragment = OptionBottomSheetDialog.newInstance(object : OnOptionListener {
                 override fun onOptionClicked(properity: Properity,option: Option) {
-                    listenerOptions.onOptionClicked(properity,option)
-                    selectedProperity = item
-                    listener.onProperityClicked(item)
-                    if(selectedOption.contains(option)){
-                        selectedOption.remove(option)
-                    }else{
-                        selectedOption.add(option)
+                    if(option.name.equals(Util.OTHER_OPTION))
+                    {
+                        holder.binding.lyOtherOption.visibility = ViewGroup.VISIBLE
+                        holder.binding.btnSubmit.setOnClickListener{
+                            holder.binding.textOther.clearFocus()
+                            option.name = holder.binding.textOther.text.toString()
+                            listenerOptions.onOptionClicked(properity, option)
+                            selectedProperity = item
+                            listener.onProperityClicked(item)
+                            if (selectedOption.contains(option)) {
+                                selectedOption.remove(option)
+                            } else {
+                                selectedOption.add(option)
+                            }
+                            holder.binding.fieldMainCategory.mainCategoryField.text =
+                                item.name + " , " + option.name
+                        }
                     }
-                    holder.binding.fieldMainCategory.mainCategoryField.text =   item.name + " , "+ option.name
-                    //notifyDataSetChanged()
+                    else {
+                        //User Choose Option
+                        listenerOptions.onOptionClicked(properity, option)
+                        selectedProperity = item
+                        listener.onProperityClicked(item)
+                        if (selectedOption.contains(option)) {
+                            selectedOption.remove(option)
+                        } else {
+                            selectedOption.add(option)
+                        }
+                        holder.binding.fieldMainCategory.mainCategoryField.text =
+                            item.name + " , " + option.name
+                    }
+                    //Show next one
+                    showNextItem(position)
 
                 }
 
                 override fun onOptionClicked(properity: Properity,option: OptionX) {
-                    listenerOptions.onOptionClicked(properity,option)
-                    selectedProperity = item
-                    listener.onProperityClicked(item)
-                    if(selectedSubOption.contains(option)){
-                        selectedSubOption.remove(option)
-                    }else{
-                        selectedSubOption.add(option)
+                    if(option.name.equals(Util.OTHER_OPTION))
+                    {
+                        holder.binding.lyOtherOption.visibility = ViewGroup.VISIBLE
+                        holder.binding.btnSubmit.setOnClickListener{
+                            holder.binding.textOther.clearFocus()
+                            option.name = holder.binding.textOther.text.toString()
+                            listenerOptions.onOptionClicked(properity, option)
+                            selectedProperity = item
+                            listener.onProperityClicked(item)
+                            if (selectedSubOption.contains(option)) {
+                                selectedSubOption.remove(option)
+                            } else {
+                                selectedSubOption.add(option)
+                            }
+                            holder.binding.fieldMainCategory.mainCategoryField.text =
+                                item.name + " , " + option.name
+                        }
                     }
-                    holder.binding.fieldMainCategory.mainCategoryField.text =   item.name + " , "+ option.name
+                    else {
+                        //User Choose SubOption
+                        listenerOptions.onOptionClicked(properity, option)
+                        selectedProperity = item
+                        listener.onProperityClicked(item)
+                        if (selectedSubOption.contains(option)) {
+                            selectedSubOption.remove(option)
+                        } else {
+                            selectedSubOption.add(option)
+                        }
+                        holder.binding.fieldMainCategory.mainCategoryField.text =
+                            item.name + " , " + option.name
+                    }
+                    //Show next one
+                    showNextItem(position)
                 }
             },item)
             bottomSheetDialogFragment.show(fragmentManager, OptionBottomSheetDialog.TAG)
         }
 
+    }
+    private fun showNextItem(position: Int){
+        if(position+1 < items.size){
+            for(i in position+1 until items.size){
+                if(items[i].options.isNotEmpty()){
+                    items[i].isVisible = true
+                    notifyItemChanged(i)
+                    break
+                }
+                else{
+                    items[i].isVisible = true
+                    notifyItemChanged(i)
+                }
+            }
+        }
     }
 
     override fun getItemCount() = items.size

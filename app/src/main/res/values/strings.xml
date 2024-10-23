@@ -12,4 +12,7 @@
     <string name="submit">Submit</string>
     <string name="home">Home</string>
     <string name="no_data_found">No Data Found!</string>
+    <string name="other_type">Write other option</string>
+    <string name="show_selection">Show Above Selections</string>
+    <string name="title_message">Messages</string>
 </resources>

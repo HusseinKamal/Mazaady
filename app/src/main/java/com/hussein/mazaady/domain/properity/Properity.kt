@@ -30,5 +30,6 @@ data class Properity(
     @Contextual
     var type: String?="",
     @SerialName("value")
-    var value: String?=""
+    var value: String?="",
+    var isVisible:Boolean = false
 )

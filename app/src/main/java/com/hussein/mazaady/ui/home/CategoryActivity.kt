@@ -43,7 +43,7 @@ class CategoryActivity : AppCompatActivity(), OnCategoryListener, OnSubCategoryL
     private var currentOption: Option? = null
     private var currentSubOption: OptionX? = null
     private var propertyList: List<Properity> = ArrayList()
-    val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private var propertyMap:PropertyMap = HashMap()
 
@@ -82,17 +82,27 @@ class CategoryActivity : AppCompatActivity(), OnCategoryListener, OnSubCategoryL
         }
 
         //Show table of properties
+        //I make this button visible all time to show table any time
         binding.btnSubmit.setOnClickListener {
-            binding.lyTableContainer.root.visibility = View.VISIBLE
-            binding.fieldMainCategory.root.visibility = View.GONE
-            binding.fieldSubMainCategory.root.visibility = View.GONE
-            binding.rvProperity.visibility = View.GONE
-            binding.btnSubmit.visibility = View.GONE
-
-            //load table of selected properties
-            val adapter = TableAdapter(propertyMap)
-            binding.lyTableContainer.rvTable.layoutManager = LinearLayoutManager(applicationContext)
-            binding.lyTableContainer.rvTable.adapter = adapter
+            if(binding.btnSubmit.text.equals(resources.getString(R.string.show_selection))){
+                binding.btnSubmit.text = resources.getString(R.string.submit)
+                binding.lyTableContainer.root.visibility = View.GONE
+                binding.fieldMainCategory.root.visibility = View.VISIBLE
+                binding.fieldSubMainCategory.root.visibility = View.VISIBLE
+                binding.rvProperity.visibility = View.VISIBLE
+            }
+            else {
+                binding.lyTableContainer.root.visibility = View.VISIBLE
+                binding.fieldMainCategory.root.visibility = View.GONE
+                binding.fieldSubMainCategory.root.visibility = View.GONE
+                binding.rvProperity.visibility = View.GONE
+                binding.btnSubmit.text = resources.getString(R.string.show_selection)
+                //load table of selected properties
+                val adapter = TableAdapter(propertyMap)
+                binding.lyTableContainer.rvTable.layoutManager =
+                    LinearLayoutManager(applicationContext)
+                binding.lyTableContainer.rvTable.adapter = adapter
+            }
         }
 
         //Button listener to go to Home page
@@ -112,41 +122,45 @@ class CategoryActivity : AppCompatActivity(), OnCategoryListener, OnSubCategoryL
     }
     private fun addMainCategoryToPropertyMap()
     {
-        if(currentMainCategory != null) {
-            //Add Main Category to Property Map and show in table
-            val property = Properity(
-                id = currentMainCategory!!.id,
-                name = resources.getString(R.string.main_category_ara),
-                type = currentMainCategory!!.slug
-            )
-            val option = Option(
-                id = currentMainCategory!!.id,
-                name = currentMainCategory!!.name,
-                parent = currentMainCategory!!.id
-            )
-            if (propertyMap.containsKey(property)) {
-                propertyMap.remove(property)
+        coroutineScope.launch {
+                if(currentMainCategory != null) {
+                    //Add Main Category to Property Map and show in table
+                    val property = Properity(
+                        id = currentMainCategory!!.id,
+                        name = resources.getString(R.string.main_category_ara),
+                        type = currentMainCategory!!.slug
+                    )
+                    val option = Option(
+                        id = currentMainCategory!!.id,
+                        name = currentMainCategory!!.name,
+                        parent = currentMainCategory!!.id
+                    )
+                    if (propertyMap.containsKey(property)) {
+                        propertyMap.remove(property)
+                    }
+                    propertyMap[property] = KeyValuePair(option, null)
+                }
             }
-            propertyMap[property] = KeyValuePair(option, null)
-        }
     }
     private fun addSubCategoryToPropertyMap(){
-        if(currentSubCategory != null) {
-            //Add Main Category to Property Map and show in table
-            val property = Properity(
-                id = currentSubCategory!!.id,
-                name = resources.getString(R.string.sub_category_ara),
-                type = currentSubCategory!!.slug
-            )
-            val option = Option(
-                id = currentSubCategory!!.id,
-                name = currentSubCategory!!.name,
-                parent = currentSubCategory!!.id
-            )
-            if (propertyMap.containsKey(property)) {
-                propertyMap.remove(property)
+        coroutineScope.launch {
+            if (currentSubCategory != null) {
+                //Add Main Category to Property Map and show in table
+                val property = Properity(
+                    id = currentSubCategory!!.id,
+                    name = resources.getString(R.string.sub_category_ara),
+                    type = currentSubCategory!!.slug
+                )
+                val option = Option(
+                    id = currentSubCategory!!.id,
+                    name = currentSubCategory!!.name,
+                    parent = currentSubCategory!!.id
+                )
+                if (propertyMap.containsKey(property)) {
+                    propertyMap.remove(property)
+                }
+                propertyMap[property] = KeyValuePair(option, null)
             }
-            propertyMap[property] = KeyValuePair(option, null)
         }
     }
 

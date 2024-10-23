@@ -10,24 +10,42 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
     android:orientation="vertical">
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fieldMainCategory"
-        android:layout_marginBottom="8dp"
         layout="@layout/custom_spinner_field"/>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:padding="5dp"
-        android:background="@color/white"
-        android:id="@+id/textOther"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:id="@+id/lyOtherOption"
+        android:orientation="horizontal"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:background="@drawable/rounded_border"
+        android:weightSum="1">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_weight=".06"
+            android:src="@drawable/ic_done"
+            android:id="@+id/btnSubmit"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.94"
+            android:inputType="text"
+            android:padding="8dp"
+            android:background="@drawable/rounded_border"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:hint="@string/other_type"
+            android:id="@+id/textOther"
+            android:textSize="14sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
 
 </LinearLayout>
 </layout>

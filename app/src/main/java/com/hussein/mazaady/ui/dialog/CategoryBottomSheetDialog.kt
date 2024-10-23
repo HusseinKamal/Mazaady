@@ -40,10 +40,12 @@ class CategoryBottomSheetDialog : BottomSheetDialogFragment() , OnCategoryListen
         }
     }
 
+    override fun getTheme(): Int {
+        return R.style.RoundedBottomSheetDialog // Apply rounded border
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.DialogStyle3)
         isCancelable = false
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

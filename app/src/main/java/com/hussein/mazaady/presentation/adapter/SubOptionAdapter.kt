@@ -7,13 +7,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hussein.mazaady.R
 import com.hussein.mazaady.databinding.OptionItemLayoutBinding
 import com.hussein.mazaady.databinding.SubOptionItemLayoutBinding
+import com.hussein.mazaady.domain.Util
 import com.hussein.mazaady.domain.option.Option
 import com.hussein.mazaady.domain.option.OptionX
 import com.hussein.mazaady.domain.properity.Properity
 import com.hussein.mazaady.presentation.event.OnOptionListener
 
-class SubOptionAdapter (private val items: List<OptionX>, private val property: Properity, private val listener: OnOptionListener) : RecyclerView.Adapter<SubOptionAdapter.ViewHolder>() {
+class SubOptionAdapter (private var items: List<OptionX>, private val property: Properity, private val listener: OnOptionListener) : RecyclerView.Adapter<SubOptionAdapter.ViewHolder>() {
 
+    init {
+        if(items.isNotEmpty()){
+
+            val data = mutableListOf<OptionX>()
+            data.addAll(items)
+            data.add(0,OptionX(false,0, Util.OTHER_OPTION,0,Util.OTHER_OPTION))
+            items = ArrayList()
+            items = data
+        }
+    }
     inner class ViewHolder(val binding: SubOptionItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
